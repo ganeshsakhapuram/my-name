@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Murali Ganesh</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #121212;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .Murali, .Ganesh {
+      font-size: 5rem;
+      font-weight: bold;
+      opacity: 0;
+      position: relative;
+    }
+
+    .Murali {
+      color: #FF5252; /* Initial color */
+      animation: slideInLeft 1.5s forwards;
+      margin-right: 20px;
+    }
+
+    .Ganesh {
+      color: #4CAF50; /* Initial color */
+      animation: slideInRight 1.5s forwards;
+    }
+
+    @keyframes slideInLeft {
+      0% {
+        transform: translateX(-100vw);
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideInRight {
+      0% {
+        transform: translateX(100vw);
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="Murali">Murali</div>
+    <div class="Ganesh">Ganesh</div>
+  </div>
+
+  <script>
+    function changeColors() {
+      const colors = [
+        '#FF5252', // Red
+        '#4CAF50', // Green
+        '#2196F3', // Blue
+        '#FFEB3B', // Yellow
+        '#9C27B0', // Purple
+        '#FF9800', // Orange
+        '#00BCD4'  // Cyan
+      ];
+
+      const murali = document.querySelector('.Murali');
+      const ganesh = document.querySelector('.Ganesh');
+
+      let muraliColorIndex = Math.floor(Math.random() * colors.length);
+      let ganeshColorIndex;
+
+      do {
+        ganeshColorIndex = Math.floor(Math.random() * colors.length);
+      } while (muraliColorIndex === ganeshColorIndex);
+
+      murali.style.color = colors[muraliColorIndex];
+      ganesh.style.color = colors[ganeshColorIndex];
+    }
+
+    window.addEventListener('load', changeColors);
+
+    document.addEventListener('visibilitychange', function() {
+      if (!document.hidden) {
+        const murali = document.querySelector('.Murali');
+        const ganesh = document.querySelector('.Ganesh');
+
+        // Reset animations
+        murali.style.animation = 'none';
+        ganesh.style.animation = 'none';
+
+        setTimeout(function() {
+          murali.style.animation = 'slideInLeft 1.5s forwards';
+          ganesh.style.animation = 'slideInRight 1.5s forwards';
+          changeColors();
+        }, 10);
+      }
+    });
+  </script>
+</body>
+</html>
